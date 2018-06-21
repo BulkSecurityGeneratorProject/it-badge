@@ -1,0 +1,70 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBadgeageLabel">Create or edit a Badgeage</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!badgeage.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="badgeage.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_badgeageEleve">Badgeage Eleve</label>
+            <div class="input-group">
+                <input id="field_badgeageEleve" type="text" class="form-control" name="badgeageEleve" ngbDatepicker  #badgeageEleveDp="ngbDatepicker" [(ngModel)]="badgeage.badgeageEleve"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="badgeageEleveDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.badgeageEleve?.dirty && editForm.controls.badgeageEleve?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.badgeageEleve?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_badgeageCorrige">Badgeage Corrige</label>
+            <div class="input-group">
+                <input id="field_badgeageCorrige" type="text" class="form-control" name="badgeageCorrige" ngbDatepicker  #badgeageCorrigeDp="ngbDatepicker" [(ngModel)]="badgeage.badgeageCorrige"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="badgeageCorrigeDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.badgeageCorrige?.dirty && editForm.controls.badgeageCorrige?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.badgeageCorrige?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_utilisateur">Utilisateur</label>
+            <select class="form-control" id="field_utilisateur" name="utilisateur" [(ngModel)]="badgeage.utilisateur"  required>
+                <option *ngIf="!editForm.value.utilisateur" [ngValue]="null" selected></option>
+                <option [ngValue]="utilisateurOption.id === badgeage.utilisateur?.id ? badgeage.utilisateur : utilisateurOption" *ngFor="let utilisateurOption of utilisateurs; trackBy: trackUtilisateurById">{{utilisateurOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.utilisateur?.dirty && editForm.controls.utilisateur?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.utilisateur?.errors?.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

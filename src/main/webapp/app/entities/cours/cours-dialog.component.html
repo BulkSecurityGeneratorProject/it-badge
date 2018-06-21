@@ -1,0 +1,83 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCoursLabel">Create or edit a Cours</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!cours.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="cours.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_nom">Nom</label>
+            <input type="text" class="form-control" name="nom" id="field_nom"
+                [(ngModel)]="cours.nom" required minlength="3" maxlength="30"/>
+            <div [hidden]="!(editForm.controls.nom?.dirty && editForm.controls.nom?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nom?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nom?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nom?.errors?.maxlength">
+                   This field cannot be longer than 30 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_dateDebut">Date Debut</label>
+            <div class="input-group">
+                <input id="field_dateDebut" type="text" class="form-control" name="dateDebut" ngbDatepicker  #dateDebutDp="ngbDatepicker" [(ngModel)]="cours.dateDebut"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateDebutDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.dateDebut?.dirty && editForm.controls.dateDebut?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.dateDebut?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_dateFin">Date Fin</label>
+            <div class="input-group">
+                <input id="field_dateFin" type="text" class="form-control" name="dateFin" ngbDatepicker  #dateFinDp="ngbDatepicker" [(ngModel)]="cours.dateFin"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateFinDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.dateFin?.dirty && editForm.controls.dateFin?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.dateFin?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_description">Description</label>
+            <select class="form-control" id="field_description" name="description" [(ngModel)]="cours.description">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="descriptionOption.id === cours.description?.id ? cours.description : descriptionOption" *ngFor="let descriptionOption of descriptions; trackBy: trackDescriptionById">{{descriptionOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

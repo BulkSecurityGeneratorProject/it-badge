@@ -1,0 +1,98 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myUtilisateurLabel">Create or edit a Utilisateur</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!utilisateur.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="utilisateur.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_nom">Nom</label>
+            <input type="text" class="form-control" name="nom" id="field_nom"
+                [(ngModel)]="utilisateur.nom" required minlength="3" maxlength="30"/>
+            <div [hidden]="!(editForm.controls.nom?.dirty && editForm.controls.nom?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nom?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nom?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.nom?.errors?.maxlength">
+                   This field cannot be longer than 30 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_prenom">Prenom</label>
+            <input type="text" class="form-control" name="prenom" id="field_prenom"
+                [(ngModel)]="utilisateur.prenom" required minlength="3" maxlength="30"/>
+            <div [hidden]="!(editForm.controls.prenom?.dirty && editForm.controls.prenom?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.prenom?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.prenom?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.prenom?.errors?.maxlength">
+                   This field cannot be longer than 30 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_isAdmin">Is Admin</label>
+            <input type="checkbox" class="form-control" name="isAdmin" id="field_isAdmin"
+                [(ngModel)]="utilisateur.isAdmin" />
+            <div [hidden]="!(editForm.controls.isAdmin?.dirty && editForm.controls.isAdmin?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.isAdmin?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_isProfesseur">Is Professeur</label>
+            <input type="checkbox" class="form-control" name="isProfesseur" id="field_isProfesseur"
+                [(ngModel)]="utilisateur.isProfesseur" />
+            <div [hidden]="!(editForm.controls.isProfesseur?.dirty && editForm.controls.isProfesseur?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.isProfesseur?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_groupe">Groupe</label>
+            <select class="form-control" id="field_groupe" name="groupe" [(ngModel)]="utilisateur.groupe" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="groupeOption.id === utilisateur.groupe?.id ? utilisateur.groupe : groupeOption" *ngFor="let groupeOption of groupes; trackBy: trackGroupeById">{{groupeOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_listCours">List Cours</label>
+            <select class="form-control" id="field_listCours" multiple name="listCours" [(ngModel)]="utilisateur.listCours">
+                <option [ngValue]="getSelected(utilisateur.listCours, coursOption)" *ngFor="let coursOption of cours; trackBy: trackCoursById">{{coursOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
