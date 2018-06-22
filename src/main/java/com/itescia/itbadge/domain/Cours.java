@@ -108,13 +108,13 @@ public class Cours implements Serializable {
 
     public Cours addListGroupe(Groupe groupe) {
         this.listGroupes.add(groupe);
-        groupe.getCours().add(this);
+        groupe.getListCours().add(this);
         return this;
     }
 
     public Cours removeListGroupe(Groupe groupe) {
         this.listGroupes.remove(groupe);
-        groupe.getCours().remove(this);
+        groupe.getListCours().remove(this);
         return this;
     }
 
