@@ -4,12 +4,11 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Description } from './description.model';
 import { DescriptionPopupService } from './description-popup.service';
 import { DescriptionService } from './description.service';
-import { Cours, CoursService } from '../cours';
 
 @Component({
     selector: 'jhi-description-dialog',
@@ -20,21 +19,15 @@ export class DescriptionDialogComponent implements OnInit {
     description: Description;
     isSaving: boolean;
 
-    cours: Cours[];
-
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiAlertService: JhiAlertService,
         private descriptionService: DescriptionService,
-        private coursService: CoursService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.coursService.query()
-            .subscribe((res: HttpResponse<Cours[]>) => { this.cours = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -65,14 +58,6 @@ export class DescriptionDialogComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(error: any) {
-        this.jhiAlertService.error(error.message, null, null);
-    }
-
-    trackCoursById(index: number, item: Cours) {
-        return item.id;
     }
 }
 

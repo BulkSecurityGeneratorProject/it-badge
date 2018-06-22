@@ -45,8 +45,7 @@ public class Cours implements Serializable {
     @JsonIgnore
     private Set<Utilisateur> listProfesseurs = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private Description description;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

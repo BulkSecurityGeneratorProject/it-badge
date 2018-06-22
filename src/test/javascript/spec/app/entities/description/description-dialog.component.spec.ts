@@ -9,7 +9,6 @@ import { ItbadgeTestModule } from '../../../test.module';
 import { DescriptionDialogComponent } from '../../../../../../main/webapp/app/entities/description/description-dialog.component';
 import { DescriptionService } from '../../../../../../main/webapp/app/entities/description/description.service';
 import { Description } from '../../../../../../main/webapp/app/entities/description/description.model';
-import { CoursService } from '../../../../../../main/webapp/app/entities/cours';
 
 describe('Component Tests', () => {
 
@@ -25,7 +24,6 @@ describe('Component Tests', () => {
                 imports: [ItbadgeTestModule],
                 declarations: [DescriptionDialogComponent],
                 providers: [
-                    CoursService,
                     DescriptionService
                 ]
             })

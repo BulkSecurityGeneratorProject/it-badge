@@ -1,6 +1,5 @@
 package com.itescia.itbadge.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -23,10 +22,6 @@ public class Description implements Serializable {
     @Column(name = "contenu")
     private String contenu;
 
-    @OneToOne(mappedBy = "description")
-    @JsonIgnore
-    private Cours cours;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -47,19 +42,6 @@ public class Description implements Serializable {
 
     public void setContenu(String contenu) {
         this.contenu = contenu;
-    }
-
-    public Cours getCours() {
-        return cours;
-    }
-
-    public Description cours(Cours cours) {
-        this.cours = cours;
-        return this;
-    }
-
-    public void setCours(Cours cours) {
-        this.cours = cours;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

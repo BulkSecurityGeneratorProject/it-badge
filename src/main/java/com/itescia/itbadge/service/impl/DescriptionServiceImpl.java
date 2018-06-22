@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing Description.
@@ -49,20 +47,6 @@ public class DescriptionServiceImpl implements DescriptionService {
     public List<Description> findAll() {
         log.debug("Request to get all Descriptions");
         return descriptionRepository.findAll();
-    }
-
-
-    /**
-     *  get all the descriptions where Cours is null.
-     *  @return the list of entities
-     */
-    @Transactional(readOnly = true) 
-    public List<Description> findAllWhereCoursIsNull() {
-        log.debug("Request to get all descriptions where Cours is null");
-        return StreamSupport
-            .stream(descriptionRepository.findAll().spliterator(), false)
-            .filter(description -> description.getCours() == null)
-            .collect(Collectors.toList());
     }
 
     /**

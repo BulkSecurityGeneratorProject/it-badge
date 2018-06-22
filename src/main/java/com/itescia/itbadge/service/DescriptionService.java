@@ -22,12 +22,6 @@ public interface DescriptionService {
      * @return the list of entities
      */
     List<Description> findAll();
-    /**
-     * Get all the DescriptionDTO where Cours is null.
-     *
-     * @return the list of entities
-     */
-    List<Description> findAllWhereCoursIsNull();
 
     /**
      * Get the "id" description.

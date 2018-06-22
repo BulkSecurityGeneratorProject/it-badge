@@ -47,19 +47,8 @@ export class CoursDialogComponent implements OnInit {
             .subscribe((res: HttpResponse<Groupe[]>) => { this.groupes = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.utilisateurService.query()
             .subscribe((res: HttpResponse<Utilisateur[]>) => { this.utilisateurs = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
-        this.descriptionService
-            .query({filter: 'cours-is-null'})
-            .subscribe((res: HttpResponse<Description[]>) => {
-                if (!this.cours.description || !this.cours.description.id) {
-                    this.descriptions = res.body;
-                } else {
-                    this.descriptionService
-                        .find(this.cours.description.id)
-                        .subscribe((subRes: HttpResponse<Description>) => {
-                            this.descriptions = [subRes.body].concat(res.body);
-                        }, (subRes: HttpErrorResponse) => this.onError(subRes.message));
-                }
-            }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.descriptionService.query()
+            .subscribe((res: HttpResponse<Description[]>) => { this.descriptions = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
