@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProfileService } from '../profiles/profile.service';
-import { Principal, LoginModalService, LoginService } from '../../shared';
+import { Principal } from '../../shared';
+import { LoginService } from '../../account';
 
 import { VERSION } from '../../app.constants';
 
@@ -19,13 +19,11 @@ export class NavbarComponent implements OnInit {
     isNavbarCollapsed: boolean;
     languages: any[];
     swaggerEnabled: boolean;
-    modalRef: NgbModalRef;
     version: string;
 
     constructor(
         private loginService: LoginService,
         private principal: Principal,
-        private loginModalService: LoginModalService,
         private profileService: ProfileService,
         private router: Router
     ) {
@@ -49,7 +47,7 @@ export class NavbarComponent implements OnInit {
     }
 
     login() {
-        this.modalRef = this.loginModalService.open();
+        this.router.navigate(['login']);
     }
 
     logout() {
