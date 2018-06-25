@@ -4,9 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ItbadgeSharedModule } from '../shared';
 
 import {
-    Register,
     LoginService,
-    RegisterComponent,
     LoginComponent,
     SettingsComponent,
     accountState
@@ -19,11 +17,9 @@ import {
     ],
     declarations: [
         LoginComponent,
-        RegisterComponent,
         SettingsComponent
     ],
     providers: [
-        Register,
         LoginService,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
