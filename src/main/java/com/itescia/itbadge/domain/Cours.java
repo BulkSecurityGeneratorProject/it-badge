@@ -37,7 +37,7 @@ public class Cours implements Serializable {
     @Column(name = "date_fin", nullable = false)
     private LocalDate dateFin;
 
-    @ManyToMany(mappedBy = "cours")
+    @ManyToMany(mappedBy = "listCours")
     @JsonIgnore
     private Set<Groupe> listGroupes = new HashSet<>();
 
