@@ -1,13 +1,11 @@
 import { Routes } from '@angular/router';
 
 import {
-    loginRoute,
-    settingsRoute
+    loginRoute
 } from './';
 
 const ACCOUNT_ROUTES = [
-    loginRoute,
-    settingsRoute
+    loginRoute
 ];
 
 export const accountState: Routes = [{

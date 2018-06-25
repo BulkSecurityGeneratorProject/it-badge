@@ -6,7 +6,6 @@ import { ItbadgeSharedModule } from '../shared';
 import {
     LoginService,
     LoginComponent,
-    SettingsComponent,
     accountState
 } from './';
 
@@ -16,11 +15,10 @@ import {
         RouterModule.forChild(accountState)
     ],
     declarations: [
-        LoginComponent,
-        SettingsComponent
+        LoginComponent
     ],
     providers: [
-        LoginService,
+        LoginService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
