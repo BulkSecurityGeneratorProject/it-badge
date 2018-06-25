@@ -6,12 +6,14 @@ import { ItbadgeSharedModule } from '../shared';
 import {
     Register,
     ActivateService,
+    LoginService,
     PasswordService,
     PasswordResetInitService,
     PasswordResetFinishService,
     PasswordStrengthBarComponent,
     RegisterComponent,
     ActivateComponent,
+    LoginComponent,
     PasswordComponent,
     PasswordResetInitComponent,
     PasswordResetFinishComponent,
@@ -26,6 +28,7 @@ import {
     ],
     declarations: [
         ActivateComponent,
+        LoginComponent,
         RegisterComponent,
         PasswordComponent,
         PasswordStrengthBarComponent,
@@ -35,6 +38,7 @@ import {
     ],
     providers: [
         Register,
+        LoginService,
         ActivateService,
         PasswordService,
         PasswordResetInitService,
