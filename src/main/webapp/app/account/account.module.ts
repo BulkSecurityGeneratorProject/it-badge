@@ -6,12 +6,8 @@ import { ItbadgeSharedModule } from '../shared';
 import {
     Register,
     LoginService,
-    PasswordResetInitService,
-    PasswordResetFinishService,
     RegisterComponent,
     LoginComponent,
-    PasswordResetInitComponent,
-    PasswordResetFinishComponent,
     SettingsComponent,
     accountState
 } from './';
@@ -24,15 +20,11 @@ import {
     declarations: [
         LoginComponent,
         RegisterComponent,
-        PasswordResetInitComponent,
-        PasswordResetFinishComponent,
         SettingsComponent
     ],
     providers: [
         Register,
         LoginService,
-        PasswordResetInitService,
-        PasswordResetFinishService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
