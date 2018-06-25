@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 
 import {
     loginRoute,
-    passwordRoute,
     passwordResetFinishRoute,
     passwordResetInitRoute,
     registerRoute,
@@ -11,7 +10,6 @@ import {
 
 const ACCOUNT_ROUTES = [
     loginRoute,
-    passwordRoute,
     passwordResetFinishRoute,
     passwordResetInitRoute,
     registerRoute,
