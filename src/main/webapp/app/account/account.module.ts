@@ -5,14 +5,12 @@ import { ItbadgeSharedModule } from '../shared';
 
 import {
     Register,
-    ActivateService,
     LoginService,
     PasswordService,
     PasswordResetInitService,
     PasswordResetFinishService,
     PasswordStrengthBarComponent,
     RegisterComponent,
-    ActivateComponent,
     LoginComponent,
     PasswordComponent,
     PasswordResetInitComponent,
@@ -27,7 +25,6 @@ import {
         RouterModule.forChild(accountState)
     ],
     declarations: [
-        ActivateComponent,
         LoginComponent,
         RegisterComponent,
         PasswordComponent,
@@ -39,7 +36,6 @@ import {
     providers: [
         Register,
         LoginService,
-        ActivateService,
         PasswordService,
         PasswordResetInitService,
         PasswordResetFinishService
