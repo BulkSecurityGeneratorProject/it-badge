@@ -5,7 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiDataUtils, JhiDateUtils, JhiEventManager, JhiAlertService, JhiParseLinks } from 'ng-jhipster';
 
-import { Principal, AccountService, LoginModalService } from '../../../main/webapp/app/shared';
+import { Principal, AccountService } from '../../../main/webapp/app/shared';
 import { MockPrincipal } from './helpers/mock-principal.service';
 import { MockAccountService } from './helpers/mock-account.service';
 import { MockActivatedRoute, MockRouter } from './helpers/mock-route.service';
@@ -41,11 +41,7 @@ import { MockEventManager } from './helpers/mock-event-manager.service';
         {
             provide: AccountService,
             useClass: MockAccountService
-        },
-        {
-            provide: LoginModalService,
-            useValue: null
-        },
+        },,
         {
             provide: ElementRef,
             useValue: null
