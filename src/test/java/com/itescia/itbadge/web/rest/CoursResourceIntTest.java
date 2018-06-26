@@ -22,8 +22,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.itescia.itbadge.web.rest.TestUtil.createFormattingConversionService;
@@ -44,11 +44,11 @@ public class CoursResourceIntTest {
     private static final String DEFAULT_NOM = "AAAAAAAAAA";
     private static final String UPDATED_NOM = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_DATE_DEBUT = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE_DEBUT = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_DATE_DEBUT = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATE_DEBUT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final LocalDate DEFAULT_DATE_FIN = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE_FIN = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_DATE_FIN = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_DATE_FIN = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private CoursRepository coursRepository;

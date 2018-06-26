@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -31,13 +31,13 @@ public class Cours implements Serializable {
 
     @NotNull
     @Column(name = "date_debut", nullable = false)
-    private LocalDate dateDebut;
+    private Instant dateDebut;
 
     @NotNull
     @Column(name = "date_fin", nullable = false)
-    private LocalDate dateFin;
+    private Instant dateFin;
 
-    @ManyToMany(mappedBy = "listCours")
+    @ManyToMany(mappedBy = "cours")
     @JsonIgnore
     private Set<Groupe> listGroupes = new HashSet<>();
 
@@ -70,29 +70,29 @@ public class Cours implements Serializable {
         this.nom = nom;
     }
 
-    public LocalDate getDateDebut() {
+    public Instant getDateDebut() {
         return dateDebut;
     }
 
-    public Cours dateDebut(LocalDate dateDebut) {
+    public Cours dateDebut(Instant dateDebut) {
         this.dateDebut = dateDebut;
         return this;
     }
 
-    public void setDateDebut(LocalDate dateDebut) {
+    public void setDateDebut(Instant dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public LocalDate getDateFin() {
+    public Instant getDateFin() {
         return dateFin;
     }
 
-    public Cours dateFin(LocalDate dateFin) {
+    public Cours dateFin(Instant dateFin) {
         this.dateFin = dateFin;
         return this;
     }
 
-    public void setDateFin(LocalDate dateFin) {
+    public void setDateFin(Instant dateFin) {
         this.dateFin = dateFin;
     }
 
@@ -107,13 +107,13 @@ public class Cours implements Serializable {
 
     public Cours addListGroupe(Groupe groupe) {
         this.listGroupes.add(groupe);
-        groupe.getListCours().add(this);
+        groupe.getCours().add(this);
         return this;
     }
 
     public Cours removeListGroupe(Groupe groupe) {
         this.listGroupes.remove(groupe);
-        groupe.getListCours().remove(this);
+        groupe.getCours().remove(this);
         return this;
     }
 

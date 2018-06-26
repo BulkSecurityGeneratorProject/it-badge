@@ -24,7 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.time.Instant;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.itescia.itbadge.web.rest.TestUtil.createFormattingConversionService;
@@ -42,11 +44,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ItbadgeApp.class)
 public class BadgeageResourceIntTest {
 
-    private static final LocalDate DEFAULT_BADGEAGE_ELEVE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_BADGEAGE_ELEVE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_CURRENT_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_CURRENT_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final LocalDate DEFAULT_BADGEAGE_CORRIGE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_BADGEAGE_CORRIGE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_BADGEAGE_ELEVE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_BADGEAGE_ELEVE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Instant DEFAULT_BADGEAGE_CORRIGE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_BADGEAGE_CORRIGE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private BadgeageRepository badgeageRepository;
@@ -89,6 +94,7 @@ public class BadgeageResourceIntTest {
      */
     public static Badgeage createEntity(EntityManager em) {
         Badgeage badgeage = new Badgeage()
+            .currentDate(DEFAULT_CURRENT_DATE)
             .badgeageEleve(DEFAULT_BADGEAGE_ELEVE)
             .badgeageCorrige(DEFAULT_BADGEAGE_CORRIGE);
         // Add required entity
@@ -119,6 +125,7 @@ public class BadgeageResourceIntTest {
         List<Badgeage> badgeageList = badgeageRepository.findAll();
         assertThat(badgeageList).hasSize(databaseSizeBeforeCreate + 1);
         Badgeage testBadgeage = badgeageList.get(badgeageList.size() - 1);
+        assertThat(testBadgeage.getCurrentDate()).isEqualTo(DEFAULT_CURRENT_DATE);
         assertThat(testBadgeage.getBadgeageEleve()).isEqualTo(DEFAULT_BADGEAGE_ELEVE);
         assertThat(testBadgeage.getBadgeageCorrige()).isEqualTo(DEFAULT_BADGEAGE_CORRIGE);
     }
@@ -144,28 +151,10 @@ public class BadgeageResourceIntTest {
 
     @Test
     @Transactional
-    public void checkBadgeageEleveIsRequired() throws Exception {
+    public void checkCurrentDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = badgeageRepository.findAll().size();
         // set the field null
-        badgeage.setBadgeageEleve(null);
-
-        // Create the Badgeage, which fails.
-
-        restBadgeageMockMvc.perform(post("/api/badgeages")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(badgeage)))
-            .andExpect(status().isBadRequest());
-
-        List<Badgeage> badgeageList = badgeageRepository.findAll();
-        assertThat(badgeageList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkBadgeageCorrigeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = badgeageRepository.findAll().size();
-        // set the field null
-        badgeage.setBadgeageCorrige(null);
+        badgeage.setCurrentDate(null);
 
         // Create the Badgeage, which fails.
 
@@ -189,6 +178,7 @@ public class BadgeageResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(badgeage.getId().intValue())))
+            .andExpect(jsonPath("$.[*].currentDate").value(hasItem(DEFAULT_CURRENT_DATE.toString())))
             .andExpect(jsonPath("$.[*].badgeageEleve").value(hasItem(DEFAULT_BADGEAGE_ELEVE.toString())))
             .andExpect(jsonPath("$.[*].badgeageCorrige").value(hasItem(DEFAULT_BADGEAGE_CORRIGE.toString())));
     }
@@ -204,6 +194,7 @@ public class BadgeageResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(badgeage.getId().intValue()))
+            .andExpect(jsonPath("$.currentDate").value(DEFAULT_CURRENT_DATE.toString()))
             .andExpect(jsonPath("$.badgeageEleve").value(DEFAULT_BADGEAGE_ELEVE.toString()))
             .andExpect(jsonPath("$.badgeageCorrige").value(DEFAULT_BADGEAGE_CORRIGE.toString()));
     }
@@ -229,6 +220,7 @@ public class BadgeageResourceIntTest {
         // Disconnect from session so that the updates on updatedBadgeage are not directly saved in db
         em.detach(updatedBadgeage);
         updatedBadgeage
+            .currentDate(UPDATED_CURRENT_DATE)
             .badgeageEleve(UPDATED_BADGEAGE_ELEVE)
             .badgeageCorrige(UPDATED_BADGEAGE_CORRIGE);
 
@@ -241,6 +233,7 @@ public class BadgeageResourceIntTest {
         List<Badgeage> badgeageList = badgeageRepository.findAll();
         assertThat(badgeageList).hasSize(databaseSizeBeforeUpdate);
         Badgeage testBadgeage = badgeageList.get(badgeageList.size() - 1);
+        assertThat(testBadgeage.getCurrentDate()).isEqualTo(UPDATED_CURRENT_DATE);
         assertThat(testBadgeage.getBadgeageEleve()).isEqualTo(UPDATED_BADGEAGE_ELEVE);
         assertThat(testBadgeage.getBadgeageCorrige()).isEqualTo(UPDATED_BADGEAGE_CORRIGE);
     }

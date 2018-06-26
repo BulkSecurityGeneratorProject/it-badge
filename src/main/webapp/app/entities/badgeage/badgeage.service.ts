@@ -63,10 +63,12 @@ export class BadgeageService {
      */
     private convertItemFromServer(badgeage: Badgeage): Badgeage {
         const copy: Badgeage = Object.assign({}, badgeage);
+        copy.currentDate = this.dateUtils
+            .convertLocalDateFromServer(badgeage.currentDate);
         copy.badgeageEleve = this.dateUtils
-            .convertLocalDateFromServer(badgeage.badgeageEleve);
+            .convertDateTimeFromServer(badgeage.badgeageEleve);
         copy.badgeageCorrige = this.dateUtils
-            .convertLocalDateFromServer(badgeage.badgeageCorrige);
+            .convertDateTimeFromServer(badgeage.badgeageCorrige);
         return copy;
     }
 
@@ -75,10 +77,12 @@ export class BadgeageService {
      */
     private convert(badgeage: Badgeage): Badgeage {
         const copy: Badgeage = Object.assign({}, badgeage);
-        copy.badgeageEleve = this.dateUtils
-            .convertLocalDateToServer(badgeage.badgeageEleve);
-        copy.badgeageCorrige = this.dateUtils
-            .convertLocalDateToServer(badgeage.badgeageCorrige);
+        copy.currentDate = this.dateUtils
+            .convertLocalDateToServer(badgeage.currentDate);
+
+        copy.badgeageEleve = this.dateUtils.toDate(badgeage.badgeageEleve);
+
+        copy.badgeageCorrige = this.dateUtils.toDate(badgeage.badgeageCorrige);
         return copy;
     }
 }

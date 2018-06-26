@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -43,7 +44,7 @@ public class DescriptionResource {
      */
     @PostMapping("/descriptions")
     @Timed
-    public ResponseEntity<Description> createDescription(@RequestBody Description description) throws URISyntaxException {
+    public ResponseEntity<Description> createDescription(@Valid @RequestBody Description description) throws URISyntaxException {
         log.debug("REST request to save Description : {}", description);
         if (description.getId() != null) {
             throw new BadRequestAlertException("A new description cannot already have an ID", ENTITY_NAME, "idexists");
@@ -65,7 +66,7 @@ public class DescriptionResource {
      */
     @PutMapping("/descriptions")
     @Timed
-    public ResponseEntity<Description> updateDescription(@RequestBody Description description) throws URISyntaxException {
+    public ResponseEntity<Description> updateDescription(@Valid @RequestBody Description description) throws URISyntaxException {
         log.debug("REST request to update Description : {}", description);
         if (description.getId() == null) {
             return createDescription(description);

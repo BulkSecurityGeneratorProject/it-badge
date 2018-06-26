@@ -2,6 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 import { Badgeage } from './badgeage.model';
 import { BadgeageService } from './badgeage.service';
 
@@ -10,6 +11,7 @@ export class BadgeagePopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
+        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private badgeageService: BadgeageService
@@ -29,20 +31,17 @@ export class BadgeagePopupService {
                 this.badgeageService.find(id)
                     .subscribe((badgeageResponse: HttpResponse<Badgeage>) => {
                         const badgeage: Badgeage = badgeageResponse.body;
-                        if (badgeage.badgeageEleve) {
-                            badgeage.badgeageEleve = {
-                                year: badgeage.badgeageEleve.getFullYear(),
-                                month: badgeage.badgeageEleve.getMonth() + 1,
-                                day: badgeage.badgeageEleve.getDate()
+                        if (badgeage.currentDate) {
+                            badgeage.currentDate = {
+                                year: badgeage.currentDate.getFullYear(),
+                                month: badgeage.currentDate.getMonth() + 1,
+                                day: badgeage.currentDate.getDate()
                             };
                         }
-                        if (badgeage.badgeageCorrige) {
-                            badgeage.badgeageCorrige = {
-                                year: badgeage.badgeageCorrige.getFullYear(),
-                                month: badgeage.badgeageCorrige.getMonth() + 1,
-                                day: badgeage.badgeageCorrige.getDate()
-                            };
-                        }
+                        badgeage.badgeageEleve = this.datePipe
+                            .transform(badgeage.badgeageEleve, 'yyyy-MM-ddTHH:mm:ss');
+                        badgeage.badgeageCorrige = this.datePipe
+                            .transform(badgeage.badgeageCorrige, 'yyyy-MM-ddTHH:mm:ss');
                         this.ngbModalRef = this.badgeageModalRef(component, badgeage);
                         resolve(this.ngbModalRef);
                     });

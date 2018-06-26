@@ -1,0 +1,37 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "utilisateur",
+            "otherEntityName": "utilisateur",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "currentDate",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "badgeageEleve",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "badgeageCorrige",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20180621092309",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "badgeage",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

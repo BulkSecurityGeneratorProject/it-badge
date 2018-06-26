@@ -4,13 +4,17 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
+        <dt><span>Current Date</span></dt>
+        <dd>
+            <span>{{badgeage.currentDate | date:'mediumDate'}}</span>
+        </dd>
         <dt><span>Badgeage Eleve</span></dt>
         <dd>
-            <span>{{badgeage.badgeageEleve | date:'mediumDate'}}</span>
+            <span>{{badgeage.badgeageEleve | date:'medium'}}</span>
         </dd>
         <dt><span>Badgeage Corrige</span></dt>
         <dd>
-            <span>{{badgeage.badgeageCorrige | date:'mediumDate'}}</span>
+            <span>{{badgeage.badgeageCorrige | date:'medium'}}</span>
         </dd>
         <dt><span>Utilisateur</span></dt>
         <dd>

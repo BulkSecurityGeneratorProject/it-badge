@@ -1,0 +1,38 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "listEleve",
+            "otherEntityName": "utilisateur",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "groupe"
+        },
+        {
+            "relationshipName": "listCours",
+            "otherEntityName": "cours",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "listGroupe"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "3",
+            "fieldValidateRulesMaxlength": "30"
+        }
+    ],
+    "changelogDate": "20180621092710",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "groupe",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

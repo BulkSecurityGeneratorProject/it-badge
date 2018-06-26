@@ -1,0 +1,59 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "listGroupe",
+            "otherEntityName": "groupe",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "cours"
+        },
+        {
+            "relationshipName": "listProfesseur",
+            "otherEntityName": "utilisateur",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "listCours"
+        },
+        {
+            "relationshipName": "description",
+            "otherEntityName": "description",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [],
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "3",
+            "fieldValidateRulesMaxlength": "30"
+        },
+        {
+            "fieldName": "dateDebut",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dateFin",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180621093246",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "cours",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

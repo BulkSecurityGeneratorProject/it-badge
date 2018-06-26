@@ -15,7 +15,13 @@
         <div class="form-group">
             <label class="form-control-label" for="field_contenu">Contenu</label>
             <input type="text" class="form-control" name="contenu" id="field_contenu"
-                [(ngModel)]="description.contenu" />
+                [(ngModel)]="description.contenu" required/>
+            <div [hidden]="!(editForm.controls.contenu?.dirty && editForm.controls.contenu?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.contenu?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
         </div>
 
     </div>

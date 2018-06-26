@@ -2,6 +2,7 @@ package com.itescia.itbadge.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,7 +20,8 @@ public class Description implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "contenu")
+    @NotNull
+    @Column(name = "contenu", nullable = false)
     private String contenu;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
