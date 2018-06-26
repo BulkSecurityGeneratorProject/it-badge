@@ -21,8 +21,7 @@ export class BadgeageDialogComponent implements OnInit {
     isSaving: boolean;
 
     utilisateurs: Utilisateur[];
-    badgeageEleveDp: any;
-    badgeageCorrigeDp: any;
+    currentDateDp: any;
 
     constructor(
         public activeModal: NgbActiveModal,

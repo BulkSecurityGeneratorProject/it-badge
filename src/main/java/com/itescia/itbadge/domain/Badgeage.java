@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -22,12 +23,14 @@ public class Badgeage implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "badgeage_eleve", nullable = false)
-    private LocalDate badgeageEleve;
+    @Column(name = "jhi_current_date", nullable = false)
+    private LocalDate currentDate;
 
-    @NotNull
-    @Column(name = "badgeage_corrige", nullable = false)
-    private LocalDate badgeageCorrige;
+    @Column(name = "badgeage_eleve")
+    private Instant badgeageEleve;
+
+    @Column(name = "badgeage_corrige")
+    private Instant badgeageCorrige;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -42,29 +45,42 @@ public class Badgeage implements Serializable {
         this.id = id;
     }
 
-    public LocalDate getBadgeageEleve() {
+    public LocalDate getCurrentDate() {
+        return currentDate;
+    }
+
+    public Badgeage currentDate(LocalDate currentDate) {
+        this.currentDate = currentDate;
+        return this;
+    }
+
+    public void setCurrentDate(LocalDate currentDate) {
+        this.currentDate = currentDate;
+    }
+
+    public Instant getBadgeageEleve() {
         return badgeageEleve;
     }
 
-    public Badgeage badgeageEleve(LocalDate badgeageEleve) {
+    public Badgeage badgeageEleve(Instant badgeageEleve) {
         this.badgeageEleve = badgeageEleve;
         return this;
     }
 
-    public void setBadgeageEleve(LocalDate badgeageEleve) {
+    public void setBadgeageEleve(Instant badgeageEleve) {
         this.badgeageEleve = badgeageEleve;
     }
 
-    public LocalDate getBadgeageCorrige() {
+    public Instant getBadgeageCorrige() {
         return badgeageCorrige;
     }
 
-    public Badgeage badgeageCorrige(LocalDate badgeageCorrige) {
+    public Badgeage badgeageCorrige(Instant badgeageCorrige) {
         this.badgeageCorrige = badgeageCorrige;
         return this;
     }
 
-    public void setBadgeageCorrige(LocalDate badgeageCorrige) {
+    public void setBadgeageCorrige(Instant badgeageCorrige) {
         this.badgeageCorrige = badgeageCorrige;
     }
 
@@ -106,6 +122,7 @@ public class Badgeage implements Serializable {
     public String toString() {
         return "Badgeage{" +
             "id=" + getId() +
+            ", currentDate='" + getCurrentDate() + "'" +
             ", badgeageEleve='" + getBadgeageEleve() + "'" +
             ", badgeageCorrige='" + getBadgeageCorrige() + "'" +
             "}";

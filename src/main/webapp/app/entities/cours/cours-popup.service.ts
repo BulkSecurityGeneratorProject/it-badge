@@ -2,6 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 import { Cours } from './cours.model';
 import { CoursService } from './cours.service';
 
@@ -10,6 +11,7 @@ export class CoursPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
+        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private coursService: CoursService
@@ -29,20 +31,10 @@ export class CoursPopupService {
                 this.coursService.find(id)
                     .subscribe((coursResponse: HttpResponse<Cours>) => {
                         const cours: Cours = coursResponse.body;
-                        if (cours.dateDebut) {
-                            cours.dateDebut = {
-                                year: cours.dateDebut.getFullYear(),
-                                month: cours.dateDebut.getMonth() + 1,
-                                day: cours.dateDebut.getDate()
-                            };
-                        }
-                        if (cours.dateFin) {
-                            cours.dateFin = {
-                                year: cours.dateFin.getFullYear(),
-                                month: cours.dateFin.getMonth() + 1,
-                                day: cours.dateFin.getDate()
-                            };
-                        }
+                        cours.dateDebut = this.datePipe
+                            .transform(cours.dateDebut, 'yyyy-MM-ddTHH:mm:ss');
+                        cours.dateFin = this.datePipe
+                            .transform(cours.dateFin, 'yyyy-MM-ddTHH:mm:ss');
                         this.ngbModalRef = this.coursModalRef(component, cours);
                         resolve(this.ngbModalRef);
                     });

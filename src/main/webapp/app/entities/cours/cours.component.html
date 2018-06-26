@@ -28,8 +28,8 @@
             <tr *ngFor="let cours of cours ;trackBy: trackId">
                 <td><a [routerLink]="['../cours', cours.id ]">{{cours.id}}</a></td>
                 <td>{{cours.nom}}</td>
-                <td>{{cours.dateDebut | date:'mediumDate'}}</td>
-                <td>{{cours.dateFin | date:'mediumDate'}}</td>
+                <td>{{cours.dateDebut | date:'medium'}}</td>
+                <td>{{cours.dateFin | date:'medium'}}</td>
                 <td>
                     <div *ngIf="cours.description">
                         <a [routerLink]="['../description', cours.description?.id ]" >{{cours.description?.id}}</a>

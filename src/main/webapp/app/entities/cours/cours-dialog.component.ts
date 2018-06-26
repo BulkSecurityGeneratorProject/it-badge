@@ -27,8 +27,6 @@ export class CoursDialogComponent implements OnInit {
     utilisateurs: Utilisateur[];
 
     descriptions: Description[];
-    dateDebutDp: any;
-    dateFinDp: any;
 
     constructor(
         public activeModal: NgbActiveModal,

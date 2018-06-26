@@ -131,6 +131,24 @@ public class DescriptionResourceIntTest {
 
     @Test
     @Transactional
+    public void checkContenuIsRequired() throws Exception {
+        int databaseSizeBeforeTest = descriptionRepository.findAll().size();
+        // set the field null
+        description.setContenu(null);
+
+        // Create the Description, which fails.
+
+        restDescriptionMockMvc.perform(post("/api/descriptions")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(description)))
+            .andExpect(status().isBadRequest());
+
+        List<Description> descriptionList = descriptionRepository.findAll();
+        assertThat(descriptionList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllDescriptions() throws Exception {
         // Initialize the database
         descriptionRepository.saveAndFlush(description);

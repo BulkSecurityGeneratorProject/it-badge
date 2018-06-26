@@ -64,9 +64,9 @@ export class CoursService {
     private convertItemFromServer(cours: Cours): Cours {
         const copy: Cours = Object.assign({}, cours);
         copy.dateDebut = this.dateUtils
-            .convertLocalDateFromServer(cours.dateDebut);
+            .convertDateTimeFromServer(cours.dateDebut);
         copy.dateFin = this.dateUtils
-            .convertLocalDateFromServer(cours.dateFin);
+            .convertDateTimeFromServer(cours.dateFin);
         return copy;
     }
 
@@ -75,10 +75,10 @@ export class CoursService {
      */
     private convert(cours: Cours): Cours {
         const copy: Cours = Object.assign({}, cours);
-        copy.dateDebut = this.dateUtils
-            .convertLocalDateToServer(cours.dateDebut);
-        copy.dateFin = this.dateUtils
-            .convertLocalDateToServer(cours.dateFin);
+
+        copy.dateDebut = this.dateUtils.toDate(cours.dateDebut);
+
+        copy.dateFin = this.dateUtils.toDate(cours.dateFin);
         return copy;
     }
 }
