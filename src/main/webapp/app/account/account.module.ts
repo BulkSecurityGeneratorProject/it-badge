@@ -4,18 +4,8 @@ import { RouterModule } from '@angular/router';
 import { ItbadgeSharedModule } from '../shared';
 
 import {
-    Register,
-    ActivateService,
-    PasswordService,
-    PasswordResetInitService,
-    PasswordResetFinishService,
-    PasswordStrengthBarComponent,
-    RegisterComponent,
-    ActivateComponent,
-    PasswordComponent,
-    PasswordResetInitComponent,
-    PasswordResetFinishComponent,
-    SettingsComponent,
+    LoginService,
+    LoginComponent,
     accountState
 } from './';
 
@@ -25,20 +15,10 @@ import {
         RouterModule.forChild(accountState)
     ],
     declarations: [
-        ActivateComponent,
-        RegisterComponent,
-        PasswordComponent,
-        PasswordStrengthBarComponent,
-        PasswordResetInitComponent,
-        PasswordResetFinishComponent,
-        SettingsComponent
+        LoginComponent
     ],
     providers: [
-        Register,
-        ActivateService,
-        PasswordService,
-        PasswordResetInitService,
-        PasswordResetFinishService
+        LoginService
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Principal } from '../auth/principal.service';
-import { AuthServerProvider } from '../auth/auth-jwt.service';
+import { Principal } from '../../shared/auth/principal.service';
+import { AuthServerProvider } from '../../shared/auth/auth-jwt.service';
 
 @Injectable()
 export class LoginService {

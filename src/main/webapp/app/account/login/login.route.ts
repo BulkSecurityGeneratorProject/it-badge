@@ -1,14 +1,14 @@
 import { Route } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { ActivateComponent } from './activate.component';
+import {LoginComponent} from './login.component';
 
-export const activateRoute: Route = {
-    path: 'activate',
-    component: ActivateComponent,
+export const loginRoute: Route = {
+    path: 'login',
+    component: LoginComponent,
     data: {
         authorities: [],
-        pageTitle: 'Activation'
+        pageTitle: 'Login'
     },
     canActivate: [UserRouteAccessService]
 };

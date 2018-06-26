@@ -9,9 +9,6 @@ import {
     AccountService,
     UserService,
     StateStorageService,
-    LoginService,
-    LoginModalService,
-    JhiLoginModalComponent,
     Principal,
     HasAnyAuthorityDirective,
 } from './';
@@ -22,12 +19,9 @@ import {
         ItbadgeSharedCommonModule
     ],
     declarations: [
-        JhiLoginModalComponent,
         HasAnyAuthorityDirective
     ],
     providers: [
-        LoginService,
-        LoginModalService,
         AccountService,
         StateStorageService,
         Principal,
@@ -36,10 +30,8 @@ import {
         UserService,
         DatePipe
     ],
-    entryComponents: [JhiLoginModalComponent],
     exports: [
         ItbadgeSharedCommonModule,
-        JhiLoginModalComponent,
         HasAnyAuthorityDirective,
         DatePipe
     ],
